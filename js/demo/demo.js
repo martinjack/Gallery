@@ -11,7 +11,7 @@
 
 /* global blueimp, $ */
 
-$(function() {
+$(function () {
   'use strict'
 
   // Load demo images from flickr:
@@ -25,12 +25,12 @@ $(function() {
     },
     dataType: 'jsonp',
     jsonp: 'jsoncallback'
-  }).done(function(result) {
+  }).done(function (result) {
     var carouselLinks = []
     var linksContainer = $('#links')
     var baseUrl
     // Add the demo images as links with thumbnails to the page:
-    $.each(result.photos.photo, function(index, photo) {
+    $.each(result.photos.photo, function (index, photo) {
       baseUrl =
         'https://farm' +
         photo.farm +
@@ -99,6 +99,12 @@ $(function() {
         type: 'text/html',
         vimeo: '73686146',
         poster: 'https://secure-a.vimeocdn.com/ts/448/835/448835699_960.jpg'
+      },
+      {
+        title: 'Audio',
+        type: 'audio/mp3',
+        href: 'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3',
+        poster: 'https://helpdeskgeek.com/wp-content/pictures/2012/06/audio-not-working.jpeg'
       }
     ],
     {

@@ -11,19 +11,28 @@
 
 /* global define */
 
-;(function(factory) {
+; (function (factory) {
+
   'use strict'
+
   if (typeof define === 'function' && define.amd) {
+
     // Register as an anonymous AMD module:
-    define(['./blueimp-helper', './blueimp-gallery'], factory)
+    define(['./blueimp-helper', './blueimp-gallery'], factory);
+
   } else {
+
     // Browser globals:
-    factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery)
+    factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery);
+
   }
-})(function($, Gallery) {
+
+})(function ($, Gallery) {
+
   'use strict'
 
   $.extend(Gallery.prototype.options, {
+
     // The class for video content elements:
     videoContentClass: 'video-content',
     // The class for video when it is loading:
@@ -33,137 +42,237 @@
     // The list object property (or data attribute) for the video poster URL:
     videoPosterProperty: 'poster',
     // The list object property (or data attribute) for the video sources array:
-    videoSourcesProperty: 'sources'
-  })
+    videoSourcesProperty: 'sources',
+    // Hidden player, when pause
+    videoHidePlayer: true
 
-  var handleSlide = Gallery.prototype.handleSlide
+  });
+
+  var handleSlide = Gallery.prototype.handleSlide;
 
   $.extend(Gallery.prototype, {
-    handleSlide: function(index) {
-      handleSlide.call(this, index)
+
+    handleSlide: function (index) {
+
+      handleSlide.call(this, index);
+
       if (this.playingVideo) {
-        this.playingVideo.pause()
+
+        this.playingVideo.pause();
+
       }
+
     },
 
-    videoFactory: function(obj, callback, videoInterface) {
-      var that = this
-      var options = this.options
-      var videoContainerNode = this.elementPrototype.cloneNode(false)
-      var videoContainer = $(videoContainerNode)
+    videoFactory: function (obj, callback, videoInterface) {
+
+      var that = this;
+      var options = this.options;
+      var videoContainerNode = this.elementPrototype.cloneNode(false);
+      var videoContainer = $(videoContainerNode);
       var errorArgs = [
         {
           type: 'error',
           target: videoContainerNode
         }
-      ]
-      var video = videoInterface || document.createElement('video')
-      var url = this.getItemProperty(obj, options.urlProperty)
-      var type = this.getItemProperty(obj, options.typeProperty)
-      var title = this.getItemProperty(obj, options.titleProperty)
+      ];
+      var video = videoInterface || document.createElement('video');
+      var url = this.getItemProperty(obj, options.urlProperty);
+      var type = this.getItemProperty(obj, options.typeProperty);
+      var title = this.getItemProperty(obj, options.titleProperty);
       var altText =
-        this.getItemProperty(obj, this.options.altTextProperty) || title
-      var posterUrl = this.getItemProperty(obj, options.videoPosterProperty)
+        this.getItemProperty(obj, this.options.altTextProperty) || title;
+      var posterUrl = this.getItemProperty(obj, options.videoPosterProperty);
       var posterImage
-      var sources = this.getItemProperty(obj, options.videoSourcesProperty)
+      var sources = this.getItemProperty(obj, options.videoSourcesProperty);
       var source
       var playMediaControl
       var isLoading
       var hasControls
-      videoContainer.addClass(options.videoContentClass)
+
+      videoContainer.addClass(options.videoContentClass);
+
       if (title) {
-        videoContainerNode.title = title
+
+        videoContainerNode.title = title;
+
       }
+
       if (video.canPlayType) {
+
         if (url && type && video.canPlayType(type)) {
-          video.src = url
+
+          video.src = url;
+
         } else if (sources) {
+
           while (sources.length) {
-            source = sources.shift()
-            url = this.getItemProperty(source, options.urlProperty)
-            type = this.getItemProperty(source, options.typeProperty)
+
+            source = sources.shift();
+
+            url = this.getItemProperty(source, options.urlProperty);
+
+            type = this.getItemProperty(source, options.typeProperty);
+
             if (url && type && video.canPlayType(type)) {
-              video.src = url
-              break
+
+              video.src = url;
+
+              break;
+
             }
+
           }
+
         }
+
       }
+
       if (posterUrl) {
-        video.poster = posterUrl
-        posterImage = this.imagePrototype.cloneNode(false)
-        $(posterImage).addClass(options.toggleClass)
-        posterImage.src = posterUrl
-        posterImage.draggable = false
-        posterImage.alt = altText
-        videoContainerNode.appendChild(posterImage)
+
+        video.poster = posterUrl;
+
+        posterImage = this.imagePrototype.cloneNode(false);
+
+        $(posterImage).addClass(options.toggleClass);
+
+        posterImage.src = posterUrl;
+
+        posterImage.draggable = false;
+
+        posterImage.alt = altText;
+
+        videoContainerNode.appendChild(posterImage);
+
       }
-      playMediaControl = document.createElement('a')
-      playMediaControl.setAttribute('target', '_blank')
+
+      playMediaControl = document.createElement('a');
+
+      playMediaControl.setAttribute('target', '_blank');
+
       if (!videoInterface) {
-        playMediaControl.setAttribute('download', title)
+
+        playMediaControl.setAttribute('download', title);
+
       }
-      playMediaControl.href = url
+
+      playMediaControl.href = url;
+
       if (video.src) {
-        video.controls = true
-        ;(videoInterface || $(video))
-          .on('error', function() {
+
+        video.controls = true;
+
+        ; (videoInterface || $(video))
+          .on('error', function () {
+
             that.setTimeout(callback, errorArgs)
+
           })
-          .on('pause', function() {
-            if (video.seeking) return
-            isLoading = false
-            videoContainer
-              .removeClass(that.options.videoLoadingClass)
-              .removeClass(that.options.videoPlayingClass)
+          .on('pause', function () {
+
+            if (video.seeking) return;
+
+            isLoading = false;
+
+            videoContainer.removeClass(that.options.videoLoadingClass);
+
+            if (that.options.videoHidePlayer) {
+
+              videoContainer.removeClass(that.options.videoPlayingClass);
+
+            }
+
             if (hasControls) {
-              that.container.addClass(that.options.controlsClass)
+
+              that.container.addClass(that.options.controlsClass);
+
             }
-            delete that.playingVideo
+
+            delete that.playingVideo;
+
             if (that.interval) {
-              that.play()
+
+              that.play();
+
             }
+
           })
-          .on('playing', function() {
-            isLoading = false
+          .on('playing', function () {
+
+            isLoading = false;
+
             videoContainer
               .removeClass(that.options.videoLoadingClass)
-              .addClass(that.options.videoPlayingClass)
+              .addClass(that.options.videoPlayingClass);
+
             if (that.container.hasClass(that.options.controlsClass)) {
-              hasControls = true
-              that.container.removeClass(that.options.controlsClass)
+
+              hasControls = true;
+
+              that.container.removeClass(that.options.controlsClass);
+
             } else {
-              hasControls = false
+
+              hasControls = false;
+
             }
+
           })
-          .on('play', function() {
-            window.clearTimeout(that.timeout)
-            isLoading = true
-            videoContainer.addClass(that.options.videoLoadingClass)
-            that.playingVideo = video
-          })
-        $(playMediaControl).on('click', function(event) {
-          that.preventDefault(event)
+          .on('play', function () {
+
+            window.clearTimeout(that.timeout);
+
+            isLoading = true;
+
+            videoContainer.addClass(that.options.videoLoadingClass);
+
+            that.playingVideo = video;
+
+          });
+
+        $(playMediaControl).on('click', function (event) {
+
+          that.preventDefault(event);
+
           if (isLoading) {
-            video.pause()
+
+            video.pause();
+
           } else {
-            video.play()
+
+            video.play();
+
           }
-        })
+
+        });
+
         videoContainerNode.appendChild(
+
           (videoInterface && videoInterface.element) || video
-        )
+
+        );
+
       }
-      videoContainerNode.appendChild(playMediaControl)
+
+      videoContainerNode.appendChild(playMediaControl);
+
       this.setTimeout(callback, [
+
         {
           type: 'load',
+
           target: videoContainerNode
+
         }
-      ])
-      return videoContainerNode
+
+      ]);
+
+      return videoContainerNode;
+
     }
-  })
+
+  });
 
   return Gallery
-})
+
+});

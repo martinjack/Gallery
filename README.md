@@ -17,6 +17,7 @@
   - [Fullscreen options](#fullscreen-options)
   - [Video options](#video-options)
     - [Video factory options](#video-factory-options)
+    - [Audio factory options](#audio-factory-options)
     - [YouTube options](#youtube-options)
     - [Vimeo options](#vimeo-options)
   - [Container and element options](#container-and-element-options)
@@ -29,6 +30,8 @@
     - [Multiple video sources](#multiple-video-sources)
     - [YouTube](#youtube)
     - [Vimeo](#vimeo)
+  - [Audio](#audio)
+    - [HTML5 audio player](#html5-audio-player)
   - [Additional Gallery elements](#additional-gallery-elements)
   - [Additional content types](#additional-content-types)
     - [Example HTML text factory implementation](#example-html-text-factory-implementation)
@@ -438,6 +441,9 @@ var videoFactoryOptions = {
   videoPosterProperty: 'poster',
   // The list object property (or data attribute) for the video sources array:
   videoSourcesProperty: 'sources'
+  // Hidden player, when pause
+  videoHidePlayer: true
+
 }
 ```
 
@@ -774,6 +780,31 @@ ID.
 Please note that the Gallery Vimeo integration requires a browser with
 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage)
 support, which excludes IE7.
+
+### Audio
+
+#### HTML5 audio player
+
+The Gallery can be initialized with a list of audio instead of images, or a
+combination of both:
+
+```js
+blueimp.Gallery([
+  {
+    title: 'Audio',
+    href: 'https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3',
+    type: 'audio/mp3',
+    poster: 'https://example.org/images/fruits.jpg'
+  },
+  {
+    title: 'Banana',
+    href: 'https://example.org/images/banana.jpg',
+    type: 'image/jpeg',
+    thumbnail: 'https://example.org/thumbnails/banana.jpg'
+  }
+])
+```
+
 
 ### Additional Gallery elements
 
