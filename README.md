@@ -470,7 +470,9 @@ var audioFactoryOptions = {
   // Show slide controls, when pause
   audioShowSlideWhenPause: true,
   // Title icon stopMediaControl
-  stopMediaControlTitle: 'Stop play'
+  stopMediaControlTitle: 'Stop play',
+  // Show icon stopMediaControl
+  showStopMediaControlIcon: true
 
 };
 ```

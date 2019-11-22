@@ -49,7 +49,9 @@
         // Show slide controls, when pause
         audioShowSlideWhenPause: true,
         // Title icon stopMediaControl
-        stopMediaControlTitle: 'Stop play'
+        stopMediaControlTitle: 'Stop play',
+        // Show icon stopMediaControl
+        showStopMediaControlIcon: true
 
     });
 
@@ -211,6 +213,12 @@
 
                         }
 
+                        if (that.options.showStopMediaControlIcon) {
+
+                            stopMediaControl.style.display = 'none';
+
+                        }
+
                     })
                     .on('playing', function () {
 
@@ -243,7 +251,11 @@
 
                         that.playingAudio = audio;
 
-                        stopMediaControl.style.display = 'block';
+                        if (that.options.showStopMediaControlIcon) {
+
+                            stopMediaControl.style.display = 'block';
+
+                        }
 
                     })
                     .on('ended', function () {
@@ -251,6 +263,14 @@
                         audioContainer
                             .removeClass(that.options.audioLoadingClass)
                             .removeClass(that.options.audioPlayingClass);
+
+                        that.container.addClass(that.options.controlsClass);
+
+                        if (that.options.showStopMediaControlIcon) {
+
+                            stopMediaControl.style.display = 'none';
+
+                        }
 
                     });
 
@@ -283,7 +303,11 @@
 
                     that.container.addClass(that.options.controlsClass);
 
-                    stopMediaControl.style.display = 'none';
+                    if (that.options.showStopMediaControlIcon) {
+
+                        stopMediaControl.style.display = 'none';
+
+                    }
 
                 });
 
