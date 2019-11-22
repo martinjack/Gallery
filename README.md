@@ -431,6 +431,7 @@ The following are the additional default options set for the video factory:
 
 ```js
 var videoFactoryOptions = {
+
   // The class for video content elements:
   videoContentClass: 'video-content',
   // The class for video when it is loading:
@@ -444,7 +445,34 @@ var videoFactoryOptions = {
   // Hidden player, when pause
   videoHidePlayer: true
 
-}
+};
+```
+
+#### Audio factory options
+
+The following are the additional default options set for the audio factory:
+
+```js
+var audioFactoryOptions = {
+
+  // The class for audio content elements:
+  audioContentClass: 'audio-content',
+  // The class for audio when it is loading:
+  audioLoadingClass: 'audio-loading',
+  // The class for audio when it is playing:
+  audioPlayingClass: 'audio-playing',
+  // The list object property (or data attribute) for the audio poster URL:
+  audioPosterProperty: 'poster',
+  // The list object property (or data attribute) for the audio sources array:
+  audioSourcesProperty: 'sources',
+  // Hidden player, when pause
+  audioHidePlayer: true,
+  // Show slide controls, when pause
+  audioShowSlideWhenPause: true,
+  // Title icon stopMediaControl
+  stopMediaControlTitle: 'Stop play'
+
+};
 ```
 
 #### YouTube options
