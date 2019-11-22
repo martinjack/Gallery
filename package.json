@@ -101,5 +101,5 @@
     "js/*.js",
     "js/*.js.map"
   ],
-  "main": "js/blueimp-gallery.js",
+  "main": "js/blueimp-gallery.js"
 }
