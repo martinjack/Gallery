@@ -1,5 +1,7 @@
 # blueimp Gallery
 
+[![npm version](https://badge.fury.io/js/jackmartin-blueimp-gallery.svg)](https://badge.fury.io/js/jackmartin-blueimp-gallery)
+
 ## Contents
 
 - [Demo](#demo)
@@ -63,6 +65,12 @@ functionality, fullscreen support and on-demand content loading and can be
 extended to display additional content types.
 
 ## Setup
+
+### NPM
+
+``` bash
+npm install jackmartin-blueimp-gallery --save
+```
 
 ### Lightbox setup
 
