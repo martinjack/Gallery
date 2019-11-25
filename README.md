@@ -7,6 +7,7 @@
 - [Demo](#demo)
 - [Description](#description)
 - [Setup](#setup)
+  - [NPM](#npm)
   - [Lightbox setup](#lightbox-setup)
   - [Controls](#controls)
   - [Carousel setup](#carousel-setup)
